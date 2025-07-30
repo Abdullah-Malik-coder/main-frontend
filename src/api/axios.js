@@ -6,10 +6,14 @@
 
 // export default instance;
 
+
+
+
+
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL + '/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL, // for Vite projects
 });
 
 export default instance;
