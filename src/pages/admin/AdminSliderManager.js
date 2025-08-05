@@ -139,11 +139,12 @@ setSliders(res.data);
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sliders.map(slider => (
           <div key={slider._id} className="bg-white p-4 shadow rounded relative">
-             <img
-  src={`http://localhost:5000${slider.imageUrl}`}  // 👈 or your server domain in production
+           <img
+  src={slider.imageUrl}  // ✅ This now uses the Cloudinary URL directly
   alt={slider.title}
   className="w-full h-64 object-cover rounded"
 />
+
             <div className="mt-2">
               <h3 className="text-lg font-bold">{slider.title}</h3>
               <p className="text-gray-600">{slider.subtitle}</p>

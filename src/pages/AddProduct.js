@@ -257,22 +257,29 @@ export default function AddProduct() {
   const [images, setImages] = useState([]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+  const { name, value } = e.target;
 
-    // Fields that should only contain numbers
-    const numericFields = ["price", "salePrice", "stock", "unit", "model"];
-    if (numericFields.includes(name) && value && !/^\d+$/.test(value)) {
-      return;
-    }
+  // Fields that should only contain numbers
+  const numericFields = ["price", "salePrice", "stock", "unit"];
+  if (numericFields.includes(name) && value && !/^\d+$/.test(value)) {
+    return;
+  }
 
-    // Fields that should only contain letters (no numbers)
-    const textOnlyFields = ["make", "carParts", "brand", "side"];
-    if (textOnlyFields.includes(name) && /\d/.test(value)) {
-      return;
-    }
+  // Fields that should only contain letters
+  const textOnlyFields = ["make","model", "carParts", "brand", "side"];
+  if (textOnlyFields.includes(name) && /\d/.test(value)) {
+    return;
+  }
 
-    setFormData({ ...formData, [name]: value });
-  };
+  // Capitalize first letter for specific fields
+  let formattedValue = value;
+  const fieldsToCapitalize = ["ProductName", "make", "model"];
+  if (fieldsToCapitalize.includes(name)) {
+    formattedValue = value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  setFormData({ ...formData, [name]: formattedValue });
+};
 
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
@@ -328,7 +335,7 @@ const handleImageDelete = (indexToRemove) => {
             <label className="capitalize">{field}</label>
             <input
               type={
-                ["price", "salePrice", "stock", "unit", "model"].includes(field)
+                ["price", "salePrice", "stock", "unit"].includes(field)
                   ? "number"
                   : "text"
               }

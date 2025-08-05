@@ -145,7 +145,7 @@ const isAdmin = !!token
   try {
     const res = await axios.get("/products/all-admin", {
       headers: {
-        Authorization: `Bearer ${token}`, // ⬅ Add this line
+        Authorization: `Bearer ${token}`,
       },
     });
     setProducts(res.data);
@@ -156,7 +156,6 @@ const isAdmin = !!token
 }, [isAdmin, token]);
 
 
-  // Call the function to fetch products when component mounts
   useEffect(() => {
     fetchAllProducts();
   }, [fetchAllProducts]);
@@ -167,7 +166,7 @@ const isAdmin = !!token
       try {
         await axios.delete(`/products/delete/${id}`);
         alert("Product deleted ✅");
-        fetchAllProducts(); // Refresh the product list after deletion
+        fetchAllProducts(); 
       } catch (err) {
         console.error("❌ Delete failed", err);
         alert("Failed to delete product");

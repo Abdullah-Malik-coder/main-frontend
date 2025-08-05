@@ -8,12 +8,11 @@
 
 
 
-
-
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // for Vite projects
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+  withCredentials: true, // if you're using cookies/session
 });
 
 export default instance;

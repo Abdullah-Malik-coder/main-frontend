@@ -121,6 +121,10 @@ const AdminSidebar = () => {
           <NavLink to="/admin/view-car-details" className="flex items-center gap-2 text-gray-400 hover:text-white">
             <FaCar /> View CarDetails
           </NavLink>
+
+            <NavLink to="/admin/orders" className="flex items-center gap-2 text-gray-400 hover:text-white">
+            <FaStore /> Orders
+          </NavLink>
         </nav>
       </div>
 

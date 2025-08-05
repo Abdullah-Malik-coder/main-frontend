@@ -326,9 +326,15 @@ export default function Home() {
   const navigate = useNavigate();
   const [sliders, setSliders] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [make, setMake] = useState('');
+const [model, setModel] = useState('');
+const [partName, setPartName] = useState('');
+
+
 
   const handleModelSelect = (make, model) => {
-    navigate(`/products?make=${make}&model=${model}`);
+navigate(`/shop?make=${make}&model=${model}`);
+
   };
 
   useEffect(() => {
@@ -348,27 +354,75 @@ export default function Home() {
       setCurrentSlide((prev) => (prev + 1) % sliders.length);
     }, 5000);
     return () => clearInterval(interval);
+
+    
   }, [sliders.length]);
 
   return (
     <div className="w-full">
       {/* Banner Section with Text and Search */}
-      <div
-        className="relative bg-cover bg-center h-[300px] md:h-[400px] flex flex-col justify-center items-center text-white mt-4"
-        style={{ backgroundImage: `url(${banner})` }}
-      >
-        <div className="bg-black bg-opacity-50 p-4 rounded mb-4 text-center w-11/12 md:w-auto">
-          <h1 className="text-2xl md:text-4xl font-bold">Find Genuine Spare Parts for Your Vehicle</h1>
-          <p className="mt-2 text-sm md:text-base">Reliable – Verified – Fast Delivery</p>
-        </div>
+     <div
+  className="relative bg-cover bg-center h-[300px] md:h-[400px] flex flex-col justify-center items-center text-white mt-4"
+  style={{ backgroundImage: `url(${banner})` }}
+>
+  {/* Heading */}
+  <div className="bg-black bg-opacity-50 p-4 rounded mb-4 text-center w-11/12 md:w-auto">
+    <h1 className="text-xl sm:text-2xl md:text-4xl font-bold">
+      Find Genuine Spare Parts for Your Vehicle
+    </h1>
+    <p className="mt-2 text-xs sm:text-sm md:text-base">
+      Reliable – Verified – Fast Delivery
+    </p>
+  </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-4 bg-white bg-opacity-90 p-4 rounded shadow-md w-11/12 md:w-auto">
-          <input type="text" placeholder="Car Make" className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]" />
-          <input type="text" placeholder="Car Model" className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]" />
-          <input type="text" placeholder="Spare Part Name" className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]" />
-          <button className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full md:w-auto">Search</button>
-        </div>
-      </div>
+  {/* Search Form */}
+  <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center items-center gap-3 bg-white bg-opacity-90 p-4 rounded shadow-md w-11/12 max-w-5xl">
+    <input
+      type="text"
+      placeholder="Car Make"
+      value={make}
+      onChange={(e) =>
+        setMake(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
+      }
+      className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
+    />
+
+    <input
+      type="text"
+      placeholder="Car Model"
+      value={model}
+      onChange={(e) =>
+        setModel(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
+      }
+      className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
+    />
+
+    <input
+      type="text"
+      placeholder="Spare Part Name"
+      value={partName}
+      onChange={(e) =>
+        setPartName(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
+      }
+      className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
+    />
+
+    <button
+      onClick={() => {
+        const query = new URLSearchParams({
+          make,
+          model,
+          name: partName
+        }).toString();
+        navigate(`/shop?${query}`);
+      }}
+      className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full sm:w-auto"
+    >
+      Search
+    </button>
+  </div>
+</div>
+
 
       {/* Car Sidebar Dropdown Section */}
       <div className="flex flex-col md:flex-row mt-6">
@@ -388,11 +442,14 @@ export default function Home() {
                 key={slider._id}
                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"}`}
               >
+               
                 <img
-                  src={`http://localhost:5000${slider.imageUrl}`}
-                  alt={slider.subtitle}
-                  className="w-full h-full object-cover"
-                />
+  src={slider.imageUrl}  
+  alt={slider.title}
+ className="w-full h-full object-cover"
+
+/>
+
                 <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 p-6">
                   <h3 className="text-lg text-white mb-2">{slider.subtitle}</h3>
                   <button className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600">Shop Now</button>
