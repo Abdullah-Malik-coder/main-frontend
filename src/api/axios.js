@@ -1,11 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://spare-backend-production.up.railway.app/api', 
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export default instance;
-
-
-
-
