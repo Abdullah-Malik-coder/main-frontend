@@ -66,12 +66,17 @@
 //     </div>
 //   );
 // }
+
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const user = JSON.parse(sessionStorage.getItem("userInfo"));
+
+  useEffect(() => {
+  console.log("Orders fetched:", orders);
+}, [orders]);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -82,6 +87,7 @@ export default function OrdersPage() {
         console.error("Failed to fetch orders", err);
       }
     };
+    
 
     if (user?.email) {
       fetchOrders();
@@ -108,7 +114,10 @@ export default function OrdersPage() {
               </div>
 
               <div className="text-sm text-gray-700 space-y-1 mb-4">
-                <p><span className="font-medium">Transaction ID:</span> {order.paymentIntentId}</p>
+<p>
+  <span className="font-medium">Order ID:</span> {order.orderId || order._id}
+</p>
+
                 <p><span className="font-medium">Customer:</span> {order.customerInfo.firstName} {order.customerInfo.lastName}</p>
                 <p><span className="font-medium">Email:</span> {order.customerInfo.email}</p>
                 <p><span className="font-medium">Phone:</span> {order.customerInfo.contactNumber}</p>

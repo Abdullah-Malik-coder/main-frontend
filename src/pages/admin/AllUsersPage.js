@@ -4,34 +4,36 @@ import axios from "../../api/axios";
 const AllUsersPage = () => {
   const [users, setUsers] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const token = sessionStorage.getItem("adminToken"); // Or localStorage if used
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get("/auth/users", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUsers(res.data);
-      } catch (err) {
-        console.error("Failed to fetch users:", err);
-      }
-    };
-    fetchUsers();
-  }, [token]);
-
-  const deleteUser = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await axios.delete(`/auth/users/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setRefresh(!refresh);
-      } catch (err) {
-        alert("Failed to delete user");
-      }
+  const token = sessionStorage.getItem("adminToken"); 
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get("/admin/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUsers(res.data);
+    } catch (err) {
+      console.error("Failed to fetch users:", err);
     }
   };
+  fetchUsers();
+}, [refresh, token]);
+
+
+const deleteUser = async (id) => {
+  if (window.confirm("Are you sure you want to delete this user?")) {
+    try {
+      await axios.delete(`/admin/user/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setRefresh(!refresh);
+    } catch (err) {
+      alert("Failed to delete user");
+      console.error(err);
+    }
+  }
+};
+
 
   return (
     <div className="p-4">

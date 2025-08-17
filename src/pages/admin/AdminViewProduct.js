@@ -135,6 +135,9 @@ export default function AdminViewProducts() {
   // Fetch admin from sessionStorage
 const token = sessionStorage.getItem("adminToken");
 const isAdmin = !!token  
+
+
+
   // Function to fetch all products (for admin)
  const fetchAllProducts = useCallback(async () => {
   if (!isAdmin) {
@@ -187,7 +190,7 @@ const isAdmin = !!token
               <th className="p-2">Price</th>
               <th className="p-2">Stock</th>
               <th className="p-2">Status</th>
-              <th className="p-2">Vendor Email</th>
+              <th className="p-2">Vendor ID</th>
               <th className="p-2">Actions</th>
             </tr>
           </thead>
@@ -211,7 +214,10 @@ const isAdmin = !!token
                     {prod.status}
                   </span>
                 </td>
-                <td className="p-2">{prod.vendorId?.email || "Unknown"}</td>
+      <td className="p-2">
+  {prod.vendorId?.idNumber || "Unknown"}
+</td>
+
                 <td className="p-2 space-x-2">
                   <button
                     onClick={() => navigate(`/admin/edit-product/${prod._id}`)}

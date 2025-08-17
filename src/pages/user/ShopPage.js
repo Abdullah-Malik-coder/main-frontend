@@ -124,7 +124,7 @@ import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import CarSidebar from "../../components/CarSidebar1";
 import { useLocation, useNavigate } from "react-router-dom";
-import banner from "../../assets/kidsport.jpg";
+import banner from "../../assets/bannerhome.jpg";
 
 export default function ShopPage() {
 
@@ -137,6 +137,7 @@ const [filters, setFilters] = useState({
   make: searchParams.get("make") || state?.make || "",
   model: searchParams.get("model") || state?.model || "",
     name: searchParams.get("name") || "",
+    condition: searchParams.get("condition") || "",
   year: "",
   variant: "",
   bodyType: ""
@@ -170,11 +171,12 @@ const [filters, setFilters] = useState({
       (!filters.year || p.year === +filters.year) &&
       (!filters.variant || p.variant === filters.variant) &&
       (!filters.bodyType || p.bodyType === filters.bodyType)&&
+    (!filters.condition || p.condition?.toLowerCase() === filters.condition.toLowerCase())&&
        (!filters.name || p.ProductName.toLowerCase().includes(filters.name.toLowerCase()))
     );
 
     setFilteredProducts(result);
-  }, [filters.make, filters.model, filters.year, filters.variant, filters.bodyType, filters.name, allProducts]);
+  }, [filters.make, filters.model, filters.year, filters.variant, filters.bodyType, filters.name, filters.condition, allProducts]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -189,9 +191,9 @@ const [filters, setFilters] = useState({
       : allProducts;
 
 return (
-  <div className="flex flex-col md:flex-row gap-10 px-6 py-6 bg-gray-50">
+<div className="flex flex-col lg:flex-row gap-6 px-4 py-4 bg-gray-100">
     {/* Sidebar */}
-    <div className="w-full md:w-64 flex-shrink-0 space-y-4">
+  <div className="w-full lg:w-64 flex-shrink-0 space-y-4">
       <CarSidebar
         onModelSelect={(make, model) => {
           setFilters({
@@ -236,18 +238,18 @@ return (
     </div>
 
     {/* Content: Banner + Products */}
-    <div className="flex-1 flex flex-col space-y-6">
+  <div className="flex-1 flex flex-col space-y-6">
       {/* Banner */}
       <img
         src={banner}
         alt="Shop Banner"
-        className="w-full h-52 object-cover rounded shadow mb-4"
+      className="w-full h-40 sm:h-52 object-cover rounded-md shadow"
       />
 
       {displayedProducts.length === 0 ? (
         <p className="text-gray-500">No products available.</p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {displayedProducts.map((prod) => (
             <div
               key={prod._id}
@@ -262,6 +264,33 @@ return (
                 <h3 className="font-semibold text-sm truncate">
                   {prod.ProductName}
                 </h3>
+
+                {/* ✅ Styled Make / Model / Year */}
+{(prod.make || prod.model || prod.year) && (
+  <div className="flex items-center gap-2 text-xs text-gray-600 mt-1">
+    {prod.make && (
+      <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">
+        {prod.make}
+      </span>
+    )}
+    {prod.model && (
+      <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+        {prod.model}
+      </span>
+    )}
+    {prod.year && (
+      <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">
+        {prod.year}
+      </span>
+    )}
+  </div>
+)}
+
+                  {prod.condition && (
+      <p className="text-xs text-gray-500">
+        Condition: <span className="font-medium">{prod.condition}</span>
+      </p>
+    )}
                 <p className="text-red-600 font-bold text-md">
                   AED {Number(prod.price).toFixed(2)}
                 </p>

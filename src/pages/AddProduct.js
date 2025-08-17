@@ -248,10 +248,13 @@ export default function AddProduct() {
     side: "",
     make: "",
     model: "",
+    year: "", 
     stock: "",
     description: "",
     brand: "",
     size: "",
+    condition: "new"
+    
   });
 
   const [images, setImages] = useState([]);
@@ -330,7 +333,7 @@ const handleImageDelete = (indexToRemove) => {
     <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Add Product</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-        {Object.keys(formData).map((field) => (
+        {/* {Object.keys(formData).map((field) => (
           <div key={field} className="flex flex-col">
             <label className="capitalize">{field}</label>
             <input
@@ -346,7 +349,58 @@ const handleImageDelete = (indexToRemove) => {
               required
             />
           </div>
-        ))}
+        ))} */}
+
+
+        {Object.keys(formData)
+  .filter((field) => field !== "condition") // ✅ exclude condition here
+  .map((field) => (
+    <div key={field} className="flex flex-col">
+      <label className="capitalize">{field}</label>
+      <input
+        type={
+          ["price", "salePrice", "stock", "unit"].includes(field)
+            ? "number"
+            : "text"
+        }
+        name={field}
+        value={formData[field]}
+        onChange={handleChange}
+        className="border p-2 rounded"
+        required
+      />
+    </div>
+))}
+
+<div className="flex flex-col">
+  <label>Year</label>
+  <input
+    type="number"
+    name="year"
+    value={formData.year}
+    onChange={handleChange}
+    min="1900"
+    max={new Date().getFullYear() + 1}
+    className="border p-2 rounded"
+    required
+  />
+</div>
+
+<div className="border p-2 rounded flex flex-col gap-1 w-64">
+  <label className="font-medium text-sm">Condition</label>
+  <select
+    name="condition"
+    value={formData.condition}
+    onChange={handleChange}
+    className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+    required
+  >
+    <option value="">Select Condition</option>
+    <option value="new">New</option>
+    <option value="used">Used</option>
+  </select>
+</div>
+
 
         <div className="col-span-2">
           <label>Product Images (multiple upto 5):</label>

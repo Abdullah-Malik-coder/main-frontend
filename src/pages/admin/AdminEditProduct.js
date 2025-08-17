@@ -417,11 +417,13 @@ export default function AdminEditProduct() {
     side: "",
     make: "",
     model: "",
+    year: "", 
     stock: "",
     description: "",
     brand: "",
     size: "",
     status: "pending",
+    condition: "", 
   });
 
   const [images, setImages] = useState([]);
@@ -442,11 +444,13 @@ export default function AdminEditProduct() {
         side: data.side || "",
         make: data.make || "",
         model: data.model || "",
+        year: data.year || "",
         stock: data.stock || "",
         description: data.description || "",
         brand: data.brand || "",
         size: data.size || "",
         status: data.status || "pending",
+        condition: data.condition || "",
       };
 
       setFormData(cleanedData);
@@ -506,9 +510,20 @@ export default function AdminEditProduct() {
                   <option value="approved">Approved</option>
                   <option value="sold">Sold</option>
                 </select>
-              ) : (
+              ) : field === "condition" ? (
+        <select
+          name="condition"
+          value={formData.condition}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        >
+          <option value="">Select Condition</option>
+          <option value="new">New</option>
+          <option value="used">Used</option>
+        </select>
+      ) : (
                 <input
-                  type="text"
+                  type={field === "year" ? "number" : "text"}
                   name={field}
                   value={formData[field]}
                   onChange={handleChange}

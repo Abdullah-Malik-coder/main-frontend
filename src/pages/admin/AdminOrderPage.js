@@ -81,7 +81,7 @@ export default function AdminOrdersPage() {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-2 text-sm text-gray-700 mb-3">
-                <p><span className="font-medium">Transaction ID:</span> {order.paymentIntentId}</p>
+                <p><span className="font-medium">Transaction ID:</span> {order.orderId}</p>
                 <p><span className="font-medium">Customer:</span> {order.customerInfo.firstName} {order.customerInfo.lastName}</p>
                 <p><span className="font-medium">Phone:</span> {order.customerInfo.contactNumber}</p>
                 <p><span className="font-medium">Email:</span> {order.customerInfo.email}</p>
@@ -101,18 +101,26 @@ export default function AdminOrdersPage() {
                   <option value="delivered">Delivered</option>
                 </select>
               </div>
+<div className="bg-gray-50 p-3 rounded-md mb-4">
+  <h4 className="font-medium text-sm mb-2">Items:</h4>
+  <ul>
+    {order.cartItems.map((item, idx) => (
+      <li
+        key={idx}
+        className="flex flex-col sm:flex-row sm:justify-between border-b py-1"
+      >
+        <div>
+          <span className="font-medium">{item.name}</span> × {item.quantity}
+          <div className="text-xs text-gray-600">
+            Brand: {item.brand || 'N/A'} | Make: {item.make || 'N/A'} | Model: {item.model || 'N/A'} | Year: {item.year || 'N/A'} | Size: {item.size || 'N/A'}
+          </div>
+        </div>
+        <span className="mt-1 sm:mt-0">AED {(item.price * item.quantity).toFixed(2)}</span>
+      </li>
+    ))}
+  </ul>
+</div>
 
-              <div className="bg-gray-50 p-3 rounded-md mb-4">
-                <h4 className="font-medium text-sm mb-2">Items:</h4>
-                <ul className="space-y-1 text-sm">
-                  {order.cartItems.map((item, idx) => (
-                    <li key={idx} className="flex justify-between">
-                      <span>{item.name} × {item.quantity}</span>
-                      <span>AED {item.price * item.quantity}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
               <div className="flex justify-end space-x-3 mt-4">
                 <button

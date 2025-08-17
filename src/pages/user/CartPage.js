@@ -203,7 +203,7 @@ const CartPage = () => {
 
   } = useCart();
 
-  const [showStripe, setShowStripe] = useState(false);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [paymentDetails, setPaymentDetails] = useState(null);
   const [paidAmount, setPaidAmount] = useState(null);
@@ -236,9 +236,10 @@ const CartPage = () => {
   };
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setShowStripe(true);
-  };
+  e.preventDefault();
+  setShowPaymentOptions(true);
+};
+
 
   const totalAmount = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -268,8 +269,8 @@ const handlePaymentSuccess = (paymentIntent) => {
         <div className="bg-green-100 p-4 rounded-lg">
           <h3 className="text-xl font-semibold text-green-800">Order Confirmed!</h3>
           <p>Thank you, {formData.firstName} {formData.lastName}.</p>
-          <p>Transaction ID: <span className="font-mono">{paymentDetails.id}</span></p>
-<p>Total Paid: ${paidAmount !== null ? paidAmount.toFixed(2) : "N/A"}</p>
+<p>Order ID: <span className="font-mono">{paymentDetails.id}</span></p>
+<p>Total Paid: AED{paidAmount !== null ? paidAmount.toFixed(2) : "N/A"}</p>
           <Link to="/" className="text-blue-600 underline mt-4 inline-block">Go back to home</Link>
         </div>
       ) : (
@@ -307,6 +308,7 @@ const handlePaymentSuccess = (paymentIntent) => {
                       <p className="text-sm text-gray-500">Brand: <span className="text-black">{item.brand || 'N/A'}</span></p>
                       <p className="text-sm text-gray-500">Make: <span className="text-black">{item.make || 'N/A'}</span></p>
                       <p className="text-sm text-gray-500">Model: <span className="text-black">{item.model || 'N/A'}</span></p>
+                      <p className="text-sm text-gray-500">Year: <span className="text-black">{item.year || 'N/A'}</span></p>
                       <p className="text-sm text-gray-500">Size: <span className="text-black">{item.size || 'N/A'}</span></p>
                     </div>
                   </div>
@@ -335,7 +337,7 @@ const handlePaymentSuccess = (paymentIntent) => {
                 </motion.div>
               ))}
 
-              {!showStripe ? (
+              {!showPaymentOptions ? (
                 <form
                   onSubmit={handleFormSubmit}
                   className="bg-gray-100 p-4 rounded-lg mt-6 space-y-4"
@@ -352,13 +354,15 @@ const handlePaymentSuccess = (paymentIntent) => {
                   </div>
 
                   <h3 className="text-lg font-semibold mt-4">Order Summary</h3>
-                  <ul className="list-disc list-inside text-gray-700">
-                    {cartItems.map((item) => (
-                      <li key={item._id}>
-                        {item.name} x {item.quantity} = ${item.price * item.quantity}
-                      </li>
-                    ))}
-                  </ul>
+              <ul className="list-disc list-inside text-gray-700">
+  {cartItems.map((item) => (
+    <li key={item._id}>
+      {item.name} ({item.brand || 'N/A'} / {item.make || 'N/A'} / {item.model || 'N/A'} / {item.size || 'N/A'})
+      &nbsp; x {item.quantity} = AED{(item.price * item.quantity).toFixed(2)}
+    </li>
+  ))}
+</ul>
+
 
                   <div className="mt-2 text-lg font-semibold">
                     Total: AED{totalAmount.toFixed(2)}
@@ -368,7 +372,7 @@ const handlePaymentSuccess = (paymentIntent) => {
                     type="submit"
                     className="bg-orange-600 text-white px-6 py-2 rounded hover:bg-green-700"
                   >
-                    Proceed to Payment
+                    Proceed to Checkout
                   </button>
                 </form>
               ) : (

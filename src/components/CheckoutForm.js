@@ -1,3 +1,5 @@
+
+
 // import {
 //   CardNumberElement,
 //   CardExpiryElement,
@@ -6,25 +8,21 @@
 //   useElements,
 // } from '@stripe/react-stripe-js';
 // import { useState } from 'react';
-// import axios from '../api/axios'; // your configured Axios instance
+// import axios from '../api/axios';
 
 // const ELEMENT_OPTIONS = {
 //   style: {
 //     base: {
 //       fontSize: '16px',
 //       color: '#32325d',
-//       '::placeholder': {
-//         color: '#aab7c4',
-//       },
+//       '::placeholder': { color: '#aab7c4' },
 //       fontFamily: 'Arial, sans-serif',
 //     },
-//     invalid: {
-//       color: '#fa755a',
-//     },
+//     invalid: { color: '#fa755a' },
 //   },
 // };
 
-// const CheckoutForm = ({ cartItems, customerInfo, onSuccess }) => {
+// const CheckoutForm = ({ cartItems, customerInfo,onSuccess }) => {
 //   const stripe = useStripe();
 //   const elements = useElements();
 //   const [loading, setLoading] = useState(false);
@@ -39,10 +37,12 @@
 //     setLoading(true);
 
 //     try {
+//       // 1. Create PaymentIntent
 //       const { data } = await axios.post('/payment/create-payment-intent', {
 //         totalAmount,
 //       });
 
+//       // 2. Confirm Card Payment
 //       const result = await stripe.confirmCardPayment(data.clientSecret, {
 //         payment_method: {
 //           card: elements.getElement(CardNumberElement),
@@ -56,10 +56,28 @@
 
 //       if (result.error) {
 //         alert(result.error.message);
-//       } else {
-//         if (result.paymentIntent.status === 'succeeded') {
-//           onSuccess(result.paymentIntent);
-//         }
+//       } else if (result.paymentIntent.status === 'succeeded') {
+//         // 3. Prepare order object
+//         const order = {
+//           customerInfo,
+//           cartItems,
+//           totalAmount,
+//           paymentIntentId: result.paymentIntent.id,
+//           createdAt: new Date().toISOString(),
+//         };
+
+//         // 4. Save to backend
+//         await axios.post('/orders', order);
+
+//         // 5. Save in sessionStorage
+//         sessionStorage.setItem('recentOrder', JSON.stringify(order));
+// sessionStorage.setItem("orderEmail", customerInfo.email);
+
+//         // 6. Clear cart
+//         // clearCart();
+
+//         // 7. Callback to show success
+//         onSuccess(result.paymentIntent);
 //       }
 //     } catch (err) {
 //       console.error(err);
@@ -102,31 +120,14 @@
 // export default CheckoutForm;
 
 
-import {
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js';
+
+
+
+
 import { useState } from 'react';
 import axios from '../api/axios';
 
-const ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      fontSize: '16px',
-      color: '#32325d',
-      '::placeholder': { color: '#aab7c4' },
-      fontFamily: 'Arial, sans-serif',
-    },
-    invalid: { color: '#fa755a' },
-  },
-};
-
-const CheckoutForm = ({ cartItems, customerInfo,onSuccess }) => {
-  const stripe = useStripe();
-  const elements = useElements();
+const CheckoutForm = ({ cartItems, customerInfo, onSuccess }) => {
   const [loading, setLoading] = useState(false);
 
   const totalAmount = cartItems.reduce(
@@ -139,51 +140,26 @@ const CheckoutForm = ({ cartItems, customerInfo,onSuccess }) => {
     setLoading(true);
 
     try {
-      // 1. Create PaymentIntent
-      const { data } = await axios.post('/payment/create-payment-intent', {
+       const customOrderId = 'ORD-' + Date.now();
+      const order = {
+        orderId: customOrderId, 
+        customerInfo,
+        cartItems,   
         totalAmount,
-      });
+        paymentMethod: 'Cash on Delivery',
+        createdAt: new Date().toISOString(),
+      };
 
-      // 2. Confirm Card Payment
-      const result = await stripe.confirmCardPayment(data.clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            name: `${customerInfo.firstName} ${customerInfo.lastName}`,
-            email: customerInfo.email,
-            phone: customerInfo.contactNumber,
-          },
-        },
-      });
+      // Save to backend
+      await axios.post('/orders', order);
 
-      if (result.error) {
-        alert(result.error.message);
-      } else if (result.paymentIntent.status === 'succeeded') {
-        // 3. Prepare order object
-        const order = {
-          customerInfo,
-          cartItems,
-          totalAmount,
-          paymentIntentId: result.paymentIntent.id,
-          createdAt: new Date().toISOString(),
-        };
-
-        // 4. Save to backend
-        await axios.post('/orders', order);
-
-        // 5. Save in sessionStorage
-        sessionStorage.setItem('recentOrder', JSON.stringify(order));
-sessionStorage.setItem("orderEmail", customerInfo.email);
-
-        // 6. Clear cart
-        // clearCart();
-
-        // 7. Callback to show success
-        onSuccess(result.paymentIntent);
-      }
+      // Save in sessionStorage (optional)
+      sessionStorage.setItem('recentOrder', JSON.stringify(order));
+      sessionStorage.setItem('orderEmail', customerInfo.email);
+    onSuccess({ id: customOrderId }); 
     } catch (err) {
       console.error(err);
-      alert('Payment failed');
+      alert('Order failed');
     } finally {
       setLoading(false);
     }
@@ -191,29 +167,16 @@ sessionStorage.setItem("orderEmail", customerInfo.email);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
-      <div className="space-y-3">
-        <label className="text-sm font-medium text-gray-700">Card Number</label>
-        <div className="border border-gray-300 rounded-md p-3 bg-white focus-within:ring-2 focus-within:ring-green-600">
-          <CardNumberElement options={ELEMENT_OPTIONS} />
-        </div>
-
-        <label className="text-sm font-medium text-gray-700">Expiry</label>
-        <div className="border border-gray-300 rounded-md p-3 bg-white focus-within:ring-2 focus-within:ring-green-600">
-          <CardExpiryElement options={ELEMENT_OPTIONS} />
-        </div>
-
-        <label className="text-sm font-medium text-gray-700">CVC</label>
-        <div className="border border-gray-300 rounded-md p-3 bg-white focus-within:ring-2 focus-within:ring-green-600">
-          <CardCvcElement options={ELEMENT_OPTIONS} />
-        </div>
+      <div className="bg-yellow-100 text-yellow-800 p-3 rounded-md">
+        Cash on Delivery selected. Please confirm to place your order.
       </div>
 
       <button
         type="submit"
-        disabled={!stripe || loading}
+        disabled={loading}
         className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition duration-200"
       >
-        {loading ? 'Processing...' : `Pay AED ${totalAmount}`}
+        {loading ? 'Placing Order...' : `Place Order (AED ${totalAmount.toFixed(2)})`}
       </button>
     </form>
   );

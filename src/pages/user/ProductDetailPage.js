@@ -195,6 +195,7 @@ addToCart({
   brand: product.brand,
   make: product.make,
   model: product.model,
+  year: product.year,
   size: product.size,
   images: product.images || [],
 });
@@ -243,6 +244,8 @@ addToCart({
 
           {product.make && <p><strong>Make:</strong> {product.make}</p>}
           {product.model && <p><strong>Model:</strong> {product.model}</p>}
+                    {product.year && <p><strong>Year:</strong> {product.year}</p>}
+
           {product.brand && <p><strong>Brand:</strong> {product.brand}</p>}
           {product.category && <p><strong>Category:</strong> {product.category}</p>}
           {product.tags?.length > 0 && (

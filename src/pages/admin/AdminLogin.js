@@ -8,23 +8,24 @@ export default function AdminLogin() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("/admin/login", { username, password });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.post("/admin/login", { username, password });
 
-      // Save token and admin info
-      sessionStorage.setItem("adminToken", res.data.token);
-      sessionStorage.setItem("adminInfo", JSON.stringify(res.data.admin));
+    // ✅ Save token and admin info
+    sessionStorage.setItem("adminToken", res.data.token);
+    sessionStorage.setItem("adminInfo", JSON.stringify(res.data.admin));
 
-      alert("✅ Logged in as Super Admin");
-      navigate("/admin/dashboard");
+    alert("✅ Logged in as Super Admin");
+    navigate("/admin/dashboard");
 
-    } catch (err) {
-      console.error(err);
-      alert("❌ Login failed");
-    }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("❌ Login failed");
+  }
+};
+
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded shadow-md">
