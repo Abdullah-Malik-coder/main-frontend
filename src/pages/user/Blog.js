@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 
 export default function BlogList() {
   const [blogs, setBlogs] = useState([]);
@@ -7,7 +7,7 @@ export default function BlogList() {
   const [expandedBlogId, setExpandedBlogId] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/blogs")
+    axios.get("/blogs")
       .then(res => {
         setBlogs(res.data);
         setLoading(false);
