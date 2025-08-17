@@ -1,22 +1,33 @@
 {
   "files": {
-    "main.css": "/static/css/main.79f69f62.css",
-    "main.js": "/static/js/main.8bca351b.js",
+    "main.css": "/static/css/main.5d03a908.css",
+    "main.js": "/static/js/main.04e6c48b.js",
     "static/js/453.9073d3b1.chunk.js": "/static/js/453.9073d3b1.chunk.js",
-    "static/media/reviews.png": "/static/media/reviews.d09d1fd355ace729d25e.png",
+    "static/media/reviews.png": "/static/media/reviews.59f2c779c332c3082590.png",
+    "static/media/subaru.png": "/static/media/subaru.3200a90ef2b2fbc2fd8e.png",
+    "static/media/audi.png": "/static/media/audi.c904d5cd6c56f02bfcc4.png",
+    "static/media/mazda.png": "/static/media/mazda.3189ddcb63076b65c22d.png",
+    "static/media/honda.png": "/static/media/honda.aec70c0742a7a3826e1c.png",
+    "static/media/toyota.png": "/static/media/toyota.82437d6dc4167b3c7519.png",
+    "static/media/hyundai.png": "/static/media/hyundai.bbab5210842092818c44.png",
+    "static/media/bmw.png": "/static/media/bmw.79fdd758013c52c5a4ff.png",
     "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.f54756da1f3d1b88887f.woff2",
     "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.1f6bad931d92a0a52c45.woff2",
+    "static/media/jeep.png": "/static/media/jeep.f6b14f94e16108f0f365.png",
+    "static/media/ford.png": "/static/media/ford.0065f44ceda731b8b3c8.png",
+    "static/media/bannerhome.jpg": "/static/media/bannerhome.6de3030b02b0a0c5cd3d.jpg",
+    "static/media/jaguar.png": "/static/media/jaguar.d7d9b73c672047e1b536.png",
+    "static/media/footerlogo.png": "/static/media/footerlogo.419a8278837341d702b7.png",
     "static/media/sparepartslogo.jpg": "/static/media/sparepartslogo.c4f34dcff49f0bed29e9.jpg",
     "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.5632c43107f4d3fa4806.woff2",
-    "static/media/bannerhome.jpeg": "/static/media/bannerhome.f4d1f0ca2ff3a8579922.jpeg",
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.24fc9d217708cb3f0362.woff2",
     "index.html": "/index.html",
-    "main.79f69f62.css.map": "/static/css/main.79f69f62.css.map",
-    "main.8bca351b.js.map": "/static/js/main.8bca351b.js.map",
+    "main.5d03a908.css.map": "/static/css/main.5d03a908.css.map",
+    "main.04e6c48b.js.map": "/static/js/main.04e6c48b.js.map",
     "453.9073d3b1.chunk.js.map": "/static/js/453.9073d3b1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.79f69f62.css",
-    "static/js/main.8bca351b.js"
+    "static/css/main.5d03a908.css",
+    "static/js/main.04e6c48b.js"
   ]
 }
