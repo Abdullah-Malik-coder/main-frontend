@@ -704,14 +704,11 @@ return (
     {slider.subtitle}
   </h3>
   <div className="flex justify-center">
-  <button
-    className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600"
-    onClick={() => {
-      window.location.href = "/shop";
-    }}
-  >
+<Link to="/shop">
+  <button className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600">
     Shop Now
   </button>
+</Link>
 </div>
 
         </div>
