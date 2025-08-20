@@ -84,15 +84,14 @@
 
 
 
-
-
-
 import { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 
 export default function AdminVendors() {
   const [vendors, setVendors] = useState([]);
   const [search, setSearch] = useState('');
+
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     fetchVendors();
@@ -179,6 +178,7 @@ const handleApprove = async (id) => {
               <th className="py-2 px-4">Address</th>
               <th className="py-2 px-4">City</th>
               <th className="py-2 px-4">Area</th>
+              <th className="py-2 px-4">ID Image</th>
               <th className="py-2 px-4">Actions</th>
             </tr>
           </thead>
@@ -191,6 +191,16 @@ const handleApprove = async (id) => {
       <td className="py-2 px-4">{vendor.address}</td>
       <td className="py-2 px-4">{vendor.city}</td>
       <td className="py-2 px-4">{vendor.area}</td>
+    <td className="py-2 px-4">
+  <img
+    src={vendor.idCardImage}
+    alt="ID"
+    className="w-20 h-auto rounded cursor-pointer"
+    onClick={() => setSelectedImage(vendor.idCardImage)}
+  />
+</td>
+
+
       <td className="py-2 px-4 space-x-2 flex items-center">
         {/* ✅ Approval Button */}
         {vendor.isApproved ? (
@@ -223,6 +233,26 @@ const handleApprove = async (id) => {
 
         </table>
       </div>
+
+
+      {selectedImage && (
+  <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+    <div className="bg-white p-4 rounded shadow-lg relative">
+      <button
+        className="absolute top-2 right-2 text-gray-700 text-lg"
+        onClick={() => setSelectedImage(null)}
+      >
+        ✖
+      </button>
+      <img
+        src={selectedImage}
+        alt="Full ID"
+        className="max-w-[90vw] max-h-[90vh] object-contain"
+      />
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
