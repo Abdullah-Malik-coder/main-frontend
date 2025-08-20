@@ -570,103 +570,103 @@ return (
   </div>
 
   {/* Search Form */}
-  <div className="relative z-10 flex flex-col sm:flex-row sm:flex-wrap sm:justify-center items-center gap-3 bg-white bg-opacity-80 p-4 rounded shadow-md w-11/12 max-w-6xl">
-   {/* Car Make Input */}
-<input
-  type="text"
-  placeholder="Car Make"
-  value={make}
-  onChange={(e) => {
-    const value = e.target.value;
-    setMake(value.charAt(0).toUpperCase() + value.slice(1));
-  }}
-  list="makeSuggestions"
-  className="border border-orange-500 px-4 py-2 rounded w-full sm:w-48 md:w-56 text-black"
-/>
-<datalist id="makeSuggestions">
-  {makeSuggestions?.map((suggestion, idx) => (
-    <option key={idx} value={suggestion} />
-  ))}
-</datalist>
+<div className="relative z-10 flex flex-col md:flex-row flex-wrap justify-center items-center gap-3 bg-white bg-opacity-80 p-4 rounded shadow-md w-11/12 max-w-6xl">
 
-{/* Car Model Input */}
-<input
-  type="text"
-  placeholder="Car Model"
-  value={model}
-  onChange={(e) => {
-    const value = e.target.value;
-    setModel(value.charAt(0).toUpperCase() + value.slice(1));
-  }}
-  list="modelSuggestions"
-  className="border border-orange-500 px-4 py-2 rounded w-full sm:w-48 md:w-56 text-black"
-/>
-<datalist id="modelSuggestions">
-  {modelSuggestions?.map((suggestion, idx) => (
-    <option key={idx} value={suggestion} />
-  ))}
-</datalist>
+  {/* Car Make Input */}
+  <input
+    type="text"
+    placeholder="Car Make"
+    value={make}
+    onChange={(e) => {
+      const value = e.target.value;
+      setMake(value.charAt(0).toUpperCase() + value.slice(1));
+    }}
+    list="makeSuggestions"
+    className="border border-orange-500 px-4 py-2 rounded w-full md:w-48 text-black"
+  />
+  <datalist id="makeSuggestions">
+    {makeSuggestions?.map((suggestion, idx) => (
+      <option key={idx} value={suggestion} />
+    ))}
+  </datalist>
 
-{/* Spare Part Name */}
-<input
-  type="text"
-  placeholder="Spare Part Name"
-  value={partName}
-  onChange={(e) => {
-    const value = e.target.value;
-    setPartName(value.charAt(0).toUpperCase() + value.slice(1));
-  }}
-  list="partSuggestions"
-  className="border border-orange-500 px-4 py-2 rounded w-full sm:w-48 md:w-56 text-black"
-/>
-<datalist id="partSuggestions">
-  {partSuggestions?.map((suggestion, idx) => (
-    <option key={idx} value={suggestion} />
-  ))}
-</datalist>
+  {/* Car Model Input */}
+  <input
+    type="text"
+    placeholder="Car Model"
+    value={model}
+    onChange={(e) => {
+      const value = e.target.value;
+      setModel(value.charAt(0).toUpperCase() + value.slice(1));
+    }}
+    list="modelSuggestions"
+    className="border border-orange-500 px-4 py-2 rounded w-full md:w-48 text-black"
+  />
+  <datalist id="modelSuggestions">
+    {modelSuggestions?.map((suggestion, idx) => (
+      <option key={idx} value={suggestion} />
+    ))}
+  </datalist>
 
+  {/* Spare Part Name */}
+  <input
+    type="text"
+    placeholder="Spare Part Name"
+    value={partName}
+    onChange={(e) => {
+      const value = e.target.value;
+      setPartName(value.charAt(0).toUpperCase() + value.slice(1));
+    }}
+    list="partSuggestions"
+    className="border border-orange-500 px-4 py-2 rounded w-full md:w-48 text-black"
+  />
+  <datalist id="partSuggestions">
+    {partSuggestions?.map((suggestion, idx) => (
+      <option key={idx} value={suggestion} />
+    ))}
+  </datalist>
 
-<Select
-  value={selectedYear ? { value: selectedYear, label: selectedYear } : null}
-  onChange={(option) => setSelectedYear(option?.value || "")}
-  options={yearOptions}
-  placeholder="Select Year"
-  className="w-full sm:w-48 md:w-56"
-  styles={{
-    menuPortal: (base) => ({ ...base, zIndex: 9999 }), // fixes overlap
-  }}
-  menuPortalTarget={document.body}
-/>
+  {/* Select Year */}
+  <Select
+    value={selectedYear ? { value: selectedYear, label: selectedYear } : null}
+    onChange={(option) => setSelectedYear(option?.value || "")}
+    options={yearOptions}
+    placeholder="Year"
+    className="w-full md:w-40"
+    styles={{
+      menuPortal: (base) => ({ ...base, zIndex: 9999 }), // fixes overlap
+    }}
+    menuPortalTarget={document.body}
+  />
 
+  {/* Condition Selector */}
+  <select
+    value={condition}
+    onChange={(e) => setCondition(e.target.value)}
+    className="border border-orange-500 px-4 py-2 rounded w-full md:w-40 text-black"
+  >
+    <option value="">Condition</option>
+    <option value="New">New</option>
+    <option value="Used">Used</option>
+  </select>
 
-    {/* Condition Selector */}
-    <select
-      value={condition}
-      onChange={(e) => setCondition(e.target.value)}
-      className="border border-orange-500 px-4 py-2 rounded w-full sm:w-48 md:w-56 text-black"
-    >
-      <option value="">Select Condition</option>
-      <option value="New">New</option>
-      <option value="Used">Used</option>
-    </select>
-
-    {/* Search Button */}
-    <button
-      onClick={() => {
-        const query = new URLSearchParams({
-          make,
-          model,
-          name: partName,
-          condition,
-          year: selectedYear,
-        }).toString();
-        navigate(`/shop?${query}`);
-      }}
-      className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full sm:w-auto"
-    >
-      Search
-    </button>
-  </div>
+  {/* Search Button */}
+  <button
+    onClick={() => {
+      const query = new URLSearchParams({
+        make,
+        model,
+        name: partName,
+        condition,
+        year: selectedYear,
+      }).toString();
+      navigate(`/shop?${query}`);
+    }}
+    className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full md:w-auto"
+  >
+    Search
+  </button>
+</div>
 </div>
 
 
