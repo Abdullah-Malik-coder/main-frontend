@@ -2,7 +2,7 @@ import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
 const WhatsAppButton = () => {
-  const phoneNumber = "+971502052161‬"; // Your WhatsApp number
+  const phoneNumber = "971502052161‬";
   const defaultMessage = "Hello! I want to inquire."; 
   const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
 
@@ -20,4 +20,5 @@ const WhatsAppButton = () => {
 };
 
 export default WhatsAppButton;
+
 
