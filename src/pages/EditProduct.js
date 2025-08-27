@@ -8,7 +8,7 @@ export default function EditProduct() {
 
   const [formData, setFormData] = useState({
     ProductName: "",
-    sku: "",
+    ProductNo: "",
     unit: "",
     price: "",
     salePrice: "",
