@@ -48,7 +48,7 @@ const AdminSidebar = () => {
 
 
   return (
-    <div className="bg-gradient-to-b from-gray-900 to-gray-800 text-white  w-64 sm:w-64  min-h-screen p-6 shadow-lg flex flex-col justify-between overflow-y-auto">
+    <div className="bg-gradient-to-b from-gray-700 to-gray-800 text-white  w-64 sm:w-64  min-h-screen p-6 shadow-lg flex flex-col justify-between overflow-y-auto">
       <div>
         <div className="flex items-center gap-3 mb-6">
         <img src={logo} alt="Admin Logo" className="w-10 h-10 rounded-full shadow-lg" />
@@ -123,6 +123,14 @@ const AdminSidebar = () => {
 
           <NavLink to="/admin/faq" className="flex items-center gap-2 text-gray-400 hover:text-white">
             <FaQuestionCircle/>FAQ's
+          </NavLink>
+
+          <NavLink to="/admin/footer" className="flex items-center gap-2 text-gray-400 hover:text-white">
+            <FaInfoCircle/>Footer
+          </NavLink>
+
+          <NavLink to="/admin/helpcenter" className="flex items-center gap-2 text-gray-400 hover:text-white">
+            <FaInfoCircle/>HelpCenter
           </NavLink>
         </nav>
       </div>
