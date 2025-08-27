@@ -1,71 +1,3 @@
-// import { useEffect, useState } from "react";
-// import axios from "../../api/axios";
-
-// export default function OrdersPage() {
-//   const [orders, setOrders] = useState([]);
-//   const user = JSON.parse(sessionStorage.getItem("userInfo"));
-
-//   useEffect(() => {
-//     const fetchOrders = async () => {
-//       try {
-//         const response = await axios.get(`/orders/user/${user.email}`);
-//         setOrders(response.data);
-//       } catch (err) {
-//         console.error("Failed to fetch orders", err);
-//       }
-//     };
-
-//     if (user?.email) {
-//       fetchOrders();
-//     }
-//   }, [user]);
-
-//   return (
-//     <div className="max-w-4xl mx-auto p-6">
-//       <h1 className="text-3xl font-bold mb-6 text-center">Your Orders</h1>
-
-//       {orders.length === 0 ? (
-//         <p className="text-center text-gray-600">No orders found.</p>
-//       ) : (
-//         <div className="space-y-6">
-//           {orders.map((order, index) => (
-//             <div key={order._id} className="border p-4 rounded shadow bg-white">
-//               <h3 className="font-semibold text-lg mb-2">
-//                 Order #{index + 1} – AED {order.totalAmount}
-//               </h3>
-//               <p className="text-sm text-gray-500 mb-1">
-//                 <span className="font-medium">Transaction ID:</span> {order.paymentIntentId}
-//               </p>
-//               <p className="text-sm mb-1">
-//                 <span className="font-medium">Status:</span> <span className="capitalize text-blue-700">{order.status}</span>
-//               </p>
-//               <p className="text-sm mb-1">
-//                 <span className="font-medium">Customer:</span> {order.customerInfo.firstName} {order.customerInfo.lastName}
-//               </p>
-//               <p className="text-sm mb-1">
-//                 <span className="font-medium">Email:</span> {order.customerInfo.email}
-//               </p>
-//               <p className="text-sm mb-1">
-//                 <span className="font-medium">Phone:</span> {order.customerInfo.contactNumber}
-//               </p>
-//               <p className="text-sm mb-3">
-//                 <span className="font-medium">Address:</span> {order.customerInfo.homeAddress}, {order.customerInfo.area}, {order.customerInfo.city}
-//               </p>
-
-//               <ul className="list-disc list-inside text-sm text-gray-700">
-//                 {order.cartItems.map((item, idx) => (
-//                   <li key={idx}>
-//                     {item.name} × {item.quantity} – AED {item.price * item.quantity}
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
@@ -99,7 +31,7 @@ export default function OrdersPage() {
       <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10 text-gray-800">Your Orders</h1>
 
       {orders.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg">No orders found.</p>
+        <p className="text-center text-gray-500 text-lg">To See Your Orders Login First.</p>
       ) : (
         <div className="space-y-8">
           {orders.map((order, index) => (
