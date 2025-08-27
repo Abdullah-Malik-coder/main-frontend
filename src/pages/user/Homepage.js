@@ -1,429 +1,3 @@
-// import banner from "../../assets/bannerhome.jpeg";
-// import CarSidebar from "../../components/CarSidebar1"; // adjust path
-// import { useNavigate } from "react-router-dom";
-
-// export default function Home() {
-//   const navigate = useNavigate();
-
-//   const handleModelSelect = (make, model) => {
-//     navigate(`/products?make=${make}&model=${model}`);
-//   };
-
-//   return (
-//     <div className="w-full">
-//       {/* Banner Section with Text and Search */}
-//       <div
-//         className="relative bg-cover bg-center h-[300px] md:h-[400px] flex flex-col justify-center items-center text-white"
-//         style={{ backgroundImage: `url(${banner})` }}
-//       >
-//         {/* Overlay Text */}
-//         <div className="bg-black bg-opacity-50 p-4 rounded mb-4 text-center w-11/12 md:w-auto">
-//           <h1 className="text-2xl md:text-4xl font-bold">Find Genuine Spare Parts for Your Vehicle</h1>
-//           <p className="mt-2 text-sm md:text-base">Reliable – Verified – Fast Delivery</p>
-//         </div>
-
-//         {/* Search Fields */}
-//         <div className="flex flex-col md:flex-row items-center gap-4 bg-white bg-opacity-90 p-4 rounded shadow-md w-11/12 md:w-auto">
-//           <input
-//             type="text"
-//             placeholder="Car Make"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <input
-//             type="text"
-//             placeholder="Car Model"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <input
-//             type="text"
-//             placeholder="Spare Part Name"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <button className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full md:w-auto">
-//             Search
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Car Sidebar Dropdown Section */}
-//       <div className="flex flex-col md:flex-row">
-//         <CarSidebar onModelSelect={handleModelSelect} />
-
-//         {/* Right section to display optional content */}
-//         <div className="flex-1 p-4">
-//           <h2 className="text-xl font-bold text-orange-600">Select a make and model to browse parts</h2>
-//           {/* You can display search results, featured items, etc., here */}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-// import banner from "../../assets/bannerhome.jpeg";
-// import CarSidebar from "../../components/CarSidebar1";
-// import { useNavigate } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import axios from "../../api/axios";
-
-// export default function Home() {
-//   const navigate = useNavigate();
-//   const [sliders, setSliders] = useState([]);
-
-//   const handleModelSelect = (make, model) => {
-//     navigate(`/products?make=${make}&model=${model}`);
-//   };
-
-//   useEffect(() => {
-//     const fetchSliders = async () => {
-//       try {
-//         const res = await axios.get("/upload/sliders?type=slider");
-//         setSliders(res.data);
-//       } catch (err) {
-//         console.error("Failed to fetch sliders", err);
-//       }
-//     };
-//     fetchSliders();
-//   }, []);
-
-//   return (
-//     <div className="w-full">
-//       {/* Banner Section with Text and Search */}
-//       <div
-//         className="relative bg-cover bg-center h-[300px] md:h-[400px] flex flex-col justify-center items-center text-white"
-//         style={{ backgroundImage: `url(${banner})` }}
-//       >
-//         {/* Overlay Text */}
-//         <div className="bg-black bg-opacity-50 p-4 rounded mb-4 text-center w-11/12 md:w-auto">
-//           <h1 className="text-2xl md:text-4xl font-bold">Find Genuine Spare Parts for Your Vehicle</h1>
-//           <p className="mt-2 text-sm md:text-base">Reliable – Verified – Fast Delivery</p>
-//         </div>
-
-//         {/* Search Fields */}
-//         <div className="flex flex-col md:flex-row items-center gap-4 bg-white bg-opacity-90 p-4 rounded shadow-md w-11/12 md:w-auto">
-//           <input
-//             type="text"
-//             placeholder="Car Make"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <input
-//             type="text"
-//             placeholder="Car Model"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <input
-//             type="text"
-//             placeholder="Spare Part Name"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <button className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full md:w-auto">
-//             Search
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Car Sidebar Dropdown Section */}
-//       <div className="flex flex-col md:flex-row">
-//         <CarSidebar onModelSelect={handleModelSelect} />
-
-//         {/* Right section with slider and message */}
-//         <div className="flex-1 p-4">
-//           <div className="flex justify-center mb-4">
-//             <div className="bg-black text-orange-500 px-6 py-3 rounded shadow-md font-semibold text-center text-lg animate-pulse">
-//               ➤ Select a make and model to browse parts
-//             </div>
-//           </div>
-
-//           <div className="relative w-full h-[400px] overflow-hidden rounded shadow-md">
-//             {sliders.map((slider, index) => (
-//               <div
-//                 key={slider._id}
-//                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
-//               >
-//                 <img
-//                   src={`http://localhost:5000${slider.imageUrl}`}
-//                   alt={slider.subtitle}
-//                   className="w-full h-full object-cover"
-//                 />
-//                 <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 p-6">
-//                   <h3 className="text-xl text-white font-bold mb-2">{slider.subtitle}</h3>
-//                   <button className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600">
-//                     Shop Now
-//                   </button>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-// import banner from "../../assets/bannerhome.jpeg";
-// import CarSidebar from "../../components/CarSidebar1";
-// import { useNavigate } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import axios from "../../api/axios";
-
-// export default function Home() {
-//   const navigate = useNavigate();
-//   const [sliders, setSliders] = useState([]);
-//   const [currentSlide, setCurrentSlide] = useState(0);
-
-//   const handleModelSelect = (make, model) => {
-//     navigate(`/products?make=${make}&model=${model}`);
-//   };
-
-//   useEffect(() => {
-//     const fetchSliders = async () => {
-//       try {
-//         const res = await axios.get("/upload/sliders?type=slider");
-//         setSliders(res.data);
-//       } catch (err) {
-//         console.error("Failed to fetch sliders", err);
-//       }
-//     };
-//     fetchSliders();
-//   }, []);
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentSlide((prev) => (prev + 1) % sliders.length);
-//     }, 5000);
-//     return () => clearInterval(interval);
-//   }, [sliders.length]);
-
-//   return (
-//     <div className="w-full">
-//       {/* Banner Section with Text and Search */}
-//       <div
-//         className="relative bg-cover bg-center h-[300px] md:h-[400px] flex flex-col justify-center items-center text-white"
-//         style={{ backgroundImage: `url(${banner})` }}
-//       >
-//         <div className="bg-black bg-opacity-50 p-4 rounded mb-4 text-center w-11/12 md:w-auto">
-//           <h1 className="text-2xl md:text-4xl font-bold">Find Genuine Spare Parts for Your Vehicle</h1>
-//           <p className="mt-2 text-sm md:text-base">Reliable – Verified – Fast Delivery</p>
-//         </div>
-
-//         <div className="flex flex-col md:flex-row items-center gap-4 bg-white bg-opacity-90 p-4 rounded shadow-md w-11/12 md:w-auto">
-//           <input
-//             type="text"
-//             placeholder="Car Make"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <input
-//             type="text"
-//             placeholder="Car Model"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <input
-//             type="text"
-//             placeholder="Spare Part Name"
-//             className="border border-orange-500 px-4 py-2 rounded w-full md:w-[250px]"
-//           />
-//           <button className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full md:w-auto">
-//             Search
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Car Sidebar Dropdown Section */}
-//       <div className="flex flex-col md:flex-row">
-//         <CarSidebar onModelSelect={handleModelSelect} />
-
-//         <div className="flex-1 p-4">
-//           <div className="flex justify-center mb-3">
-//             <div className="bg-white-800 text-orange-500 px-6 py-3 rounded shadow-md font-semibold text-center text-lg animate-pulse">
-//               <span className="mr-3 animate-bounce text-3xl">☚</span>
-//               Select a make and model to browse parts
-//             </div>
-//           </div>
-
-//           <div className="relative w-full h-[580px] overflow-hidden rounded shadow-md mb-10">
-//             {sliders.map((slider, index) => (
-//               <div
-//                 key={slider._id}
-//                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-//                   index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-//                 }`}
-//               >
-//                 <img
-//                   src={`http://localhost:5000${slider.imageUrl}`}
-//                   alt={slider.subtitle}
-//                   className="w-full h-full object-cover"
-//                 />
-//                 <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 p-6">
-//                   <h3 className="text-lg text-white mb-2">{slider.subtitle}</h3>
-//                   <button className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600">
-//                     Shop Now
-//                   </button>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-
-//           {/* Insert full-width promotional banner */}
-//          <div
-//   className="relative w-full bg-cover bg-center h-[600px]  min-h-screen flex justify-center items-center"
-//   style={{ backgroundImage: `url(${banner})` }}
-// >
-//             <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-40 p-6 text-center">
-//               <h2 className="text-4xl font-bold mb-4">Car Parts That Exceed Your Expectations</h2>
-//               <p className="mb-4 max-w-2xl">
-//                 Morbi accumsan sodales sociosqu curae egestas metus. Tellus nascetur egestas nunc consectetur ullamcorper sodales dignissim montes ultricies rhoncus etiam. In maximus efficitur dignissim primis semper himenaeos pharetra.
-//               </p>
-//               <button className="bg-orange-500 text-white font-bold px-6 py-2 rounded shadow hover:bg-orange-600">
-//                 Go To Shop !
-//               </button>
-//             </div>
-//             <div className="absolute bottom-[-60px] left-1/2 transform -translate-x-1/2 w-[90%] bg-white shadow-lg grid grid-cols-1 md:grid-cols-4 gap-6 px-6 py-6 rounded">
-//               <div className="text-center">
-//                 <h3 className="text-3xl font-extrabold">2,500<span className="text-orange-500"> +</span></h3>
-//                 <p className="text-gray-600">Brand Product</p>
-//               </div>
-//               <div className="text-center">
-//                 <h3 className="text-3xl font-extrabold">96<span className="text-orange-500"> %</span></h3>
-//                 <p className="text-gray-600">Customer Satisfaction</p>
-//               </div>
-//               <div className="text-center">
-//                 <h3 className="text-3xl font-extrabold">120<span className="text-orange-500"> +</span></h3>
-//                 <p className="text-gray-600">Offline Store</p>
-//               </div>
-//               <div className="text-center">
-//                 <h3 className="text-3xl font-extrabold">75<span className="text-orange-500"> +</span></h3>
-//                 <p className="text-gray-600">Professional Team</p>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-// import banner from "../../assets/bannerhome.jpeg";
-// import review from '../../assets/reviews.png'
-// import CarSidebar from "../../components/CarSidebar1";
-// import '@fortawesome/fontawesome-free/css/all.min.css';
-// import { useNavigate } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import axios from "../../api/axios";
-
-// export default function Home() {
-//   const navigate = useNavigate();
-//   const [sliders, setSliders] = useState([]);
-//   const [make, setMake] = useState('');
-// const [model, setModel] = useState('');
-// const [partName, setPartName] = useState('');
-// const [condition, setCondition] = useState("");
-
-
-
-//   const handleModelSelect = (make, model) => {
-// navigate(`/shop?make=${make}&model=${model}`);
-
-//   };
-
-//   useEffect(() => {
-//     const fetchSliders = async () => {
-//       try {
-//         const res = await axios.get("/upload/sliders?type=slider");
-//         setSliders(res.data);
-//       } catch (err) {
-//         console.error("Failed to fetch sliders", err);
-//       }
-//     };
-//     fetchSliders();
-//   }, []);
-
-
-
-//   return (
-//     <div className="w-full">
-//       {/* Banner Section with Text and Search */}
-//      <div
-//   className="relative bg-cover bg-center h-[300px] md:h-[400px] flex flex-col justify-center items-center text-white mt-4"
-//   style={{ backgroundImage: `url(${banner})` }}
-// >
-//   {/* Heading */}
-//   <div className="bg-black bg-opacity-50 p-4 rounded mb-4 text-center w-11/12 md:w-auto">
-//     <h1 className="text-xl sm:text-2xl md:text-4xl font-bold">
-//       Find Genuine Spare Parts for Your Vehicle
-//     </h1>
-//     <p className="mt-2 text-xs sm:text-sm md:text-base">
-//       Reliable – Verified – Fast Delivery
-//     </p>
-//   </div>
-
-//   {/* Search Form */}
-//   <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center items-center gap-3 bg-white bg-opacity-90 p-4 rounded shadow-md w-11/12 max-w-5xl">
-//     <input
-//       type="text"
-//       placeholder="Car Make"
-//       value={make}
-//       onChange={(e) =>
-//         setMake(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
-//       }
-//       className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
-//     />
-
-//     <input
-//       type="text"
-//       placeholder="Car Model"
-//       value={model}
-//       onChange={(e) =>
-//         setModel(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
-//       }
-//       className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
-//     />
-
-//     <input
-//       type="text"
-//       placeholder="Spare Part Name"
-//       value={partName}
-//       onChange={(e) =>
-//         setPartName(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
-//       }
-//       className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
-//     />
-// <select
-//   value={condition}
-//   onChange={(e) => setCondition(e.target.value)}
-//   className="border border-orange-500 px-4 py-2 rounded w-full sm:w-[200px] md:w-[250px] text-black"
-// >
-//   <option value="">Select Condition</option>
-//   <option value="New">new</option>
-//   <option value="Used">used</option>
-// </select>
-//     <button
-//       onClick={() => {
-//         const query = new URLSearchParams({
-//           make,
-//           model,
-//           name: partName,
-//           condition
-//         }).toString();
-//         navigate(`/shop?${query}`);
-//       }}
-//       className="bg-orange-500 text-black px-6 py-2 rounded hover:bg-orange-600 w-full sm:w-auto"
-//     >
-//       Search
-//     </button>
-//   </div>
-// </div>
 
 import banner from "../../assets/bannerhome.jpg";
 import review from '../../assets/reviews.png'
@@ -453,6 +27,7 @@ const [partName, setPartName] = useState('');
 const [condition, setCondition] = useState("");
   const [categoryBanners, setCategoryBanners] = useState([]);
 const [selectedYear, setSelectedYear] = useState('');
+const [productNo, setProductNo] = useState('');
 
 
 
@@ -533,17 +108,16 @@ navigate(`/shop?make=${make}&model=${model}`);
   const topBanner = categoryBanners.length > 0 ? categoryBanners[0] : null;
 
 return (
-<div className="w-full overflow-x-hidden">
+<div className="w-full ">
 
     {/* Top Banner Section with Text and Search */}
-  <div
-  className="relative w-full h-[calc(100vh-64px)] flex flex-col justify-center items-center text-white overflow-hidden"
-  style={{ marginTop: -16 }}
+<div
+  className="relative  h-screen flex flex-col justify-center items-center text-white overflow-hidden m-0 p-0"
 >
   {topBanner ? (
     topBanner.imageUrl.endsWith(".mp4") || topBanner.imageUrl.endsWith(".webm") ? (
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        className="absolute bottom-0 left-0 w-full h-full object-cover z-0 "
         src={topBanner.imageUrl}
         autoPlay
         muted
@@ -569,7 +143,7 @@ return (
     </p>
   </div>
 
-  {/* Search Form */}
+{/* Search Form */}
 <div className="relative z-10 flex flex-col md:flex-row flex-wrap justify-center items-center gap-3 bg-white bg-opacity-80 p-4 rounded shadow-md w-11/12 max-w-6xl">
 
   {/* Car Make Input */}
@@ -666,8 +240,40 @@ return (
   >
     Search
   </button>
+
 </div>
+{/* Product Number Quick Search */}
+<div className="relative z-10 mt-4 flex justify-center w-full">
+  <div className="flex flex-col md:flex-row items-center bg-white bg-opacity-95 px-3 py-2 rounded-lg shadow-md w-11/12 max-w-xl">
+    
+    {/* Input */}
+    <input
+      type="text"
+      placeholder="Enter Product No"
+      value={productNo}
+      onChange={(e) => setProductNo(e.target.value)}
+      className="md:flex-grow border border-gray-300 px-3 py-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 w-3/4 md:w-auto"
+    />
+    
+    {/* Button */}
+    <button
+      onClick={() => {
+        if (productNo.trim()) {
+          navigate(`/shop?productNo=${productNo}`);
+        }
+      }}
+      className="bg-purple-600 text-white px-5 py-2 rounded-md hover:bg-purple-700 transition md:w-auto w-full mt-2 md:mt-0"
+    >
+      Search by No
+    </button>
+  </div>
 </div>
+
+
+</div>
+
+
+
 
 
      {/* Car Sidebar Dropdown Section */}
@@ -705,8 +311,8 @@ return (
   </h3>
   <div className="flex justify-center">
 <Link to="/shop">
-  <button className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600">
-    Shop Now
+  <button className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600 ">
+    Explore!
   </button>
 </Link>
 </div>
@@ -722,78 +328,105 @@ return (
 
 {/* Premium Brands Scrolling Section */}
 <div className="bg-white py-12 px-4 mt-20 overflow-hidden">
-  <div className="max-w-6xl mx-auto text-center">
+ 
     
-    <h2 className="text-3xl font-bold mb-8">
+    <h2 className="text-3xl font-bold mb-8 text-center">
       Most valuable brands <br className="hidden sm:block" /> are available
     </h2>
 
-    {/* Scrolling Container */}
-    <div className="relative w-full overflow-x-hidden">
-      <div
-  className="flex animate-scroll gap-8"
-  style={{
-    animation: "scroll 20s linear infinite",
-    width: "200%", 
-  }}
+   {/* Scrolling Container */}
+<div className="relative w-full overflow-hidden  ">
+  <div
+    className="flex animate-scroll gap-12"
+    style={{
+      animation: "scroll 20s linear infinite",
+      width: "max-content", // fit content instead of fixed 200%
+    }}
+  >
+    {/* First set of logos */}
+    <div className="flex gap-12">
+      <img src={ToyotaLogo} alt="Toyota" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={FordLogo} alt="Ford" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={HyundaiLogo} alt="Hyundai" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={AudiLogo} alt="Audi" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={MazdaLogo} alt="Mazda" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={HondaLogo} alt="Honda" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={BMWLogo} alt="BMW" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={SubaruLogo} alt="Subaru" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={JeepLogo} alt="Jeep" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={JaguarLogo} alt="Jaguar" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+    </div>
+
+    {/* Duplicate set for seamless loop */}
+    <div className="flex gap-12">
+      <img src={ToyotaLogo} alt="Toyota" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={FordLogo} alt="Ford" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={HyundaiLogo} alt="Hyundai" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={AudiLogo} alt="Audi" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={MazdaLogo} alt="Mazda" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={HondaLogo} alt="Honda" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={BMWLogo} alt="BMW" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={SubaruLogo} alt="Subaru" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={JeepLogo} alt="Jeep" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+      <img src={JaguarLogo} alt="Jaguar" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
+    </div>
+  </div>
+</div>
+</div>
+
+{/* Promotional Banner Section Full Width */}
+<div
+  className="relative w-full h-[600px] mt-[100px] rounded-2xl overflow-hidden flex justify-center items-center bg-cover bg-center"
+  style={{ backgroundImage: `url(${banner})` }}
 >
+  {/* Overlay + Content */}
+  <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-40 p-6 text-center">
+    <h2 className="text-4xl font-bold mb-4">
+      Car Parts That Exceed Your Expectations
+    </h2>
+    <p className="mb-4 max-w-2xl">
+      Strong relationships and mutual care build lasting success. New
+      opportunities grow when we work together, creating a foundation of
+      trust, respect, and shared achievement
+    </p>
+    <Link to="/shop">
+      <button className="bg-orange-500 text-white font-bold px-6 py-2 rounded shadow hover:bg-orange-600">
+        Go To Shop !
+      </button>
+    </Link>
+  </div>
+</div>
 
-        {/* First set of logos */}
-        <div className="flex gap-12">
-          <img src={ToyotaLogo} alt="Toyota" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={FordLogo} alt="Ford" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={HyundaiLogo} alt="Hyundai" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={AudiLogo} alt="Audi" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={MazdaLogo} alt="Mazda" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={HondaLogo} alt="Honda" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={BMWLogo} alt="BMW" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-         <img src={SubaruLogo} alt="subaru" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={JeepLogo} alt="jeep" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-          <img src={JaguarLogo} alt="jaguar" className="h-20 sm:h-24 md:h-28 object-contain flex-shrink-0" />
-
-        </div>
-
-        {/* Duplicate set for seamless loop */}
-       
-      </div>
+{/* Stats Box - moved OUTSIDE the rounded container */}
+<div className="relative -mt-12 flex justify-center">
+  <div className="w-[90%] bg-white shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-6 py-6 rounded-2xl">
+    <div className="text-center">
+      <h3 className="text-3xl font-extrabold">
+        2,500<span className="text-orange-500"> +</span>
+      </h3>
+      <p className="text-gray-600">Brand Product</p>
+    </div>
+    <div className="text-center">
+      <h3 className="text-3xl font-extrabold">
+        96<span className="text-orange-500"> %</span>
+      </h3>
+      <p className="text-gray-600">Customer Satisfaction</p>
+    </div>
+    <div className="text-center">
+      <h3 className="text-3xl font-extrabold">
+        120<span className="text-orange-500"> +</span>
+      </h3>
+      <p className="text-gray-600">Offline Store</p>
+    </div>
+    <div className="text-center">
+      <h3 className="text-3xl font-extrabold">
+        75<span className="text-orange-500"> +</span>
+      </h3>
+      <p className="text-gray-600">Professional Team</p>
     </div>
   </div>
 </div>
 
-      {/* Promotional Banner Section Full Width */}
-      <div
-        className="relative w-full bg-cover bg-center h-[600px] flex justify-center items-center mt-[100px]"
-        style={{ backgroundImage: `url(${banner})` }}
-      >
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-40 p-6 text-center">
-          <h2 className="text-4xl font-bold mb-4">Car Parts That Exceed Your Expectations</h2>
-          <p className="mb-4 max-w-2xl">
-Strong relationships and mutual care build lasting success. New opportunities grow when we work together, creating a foundation of trust, respect, and shared achievement          </p>
-<Link to="/shop">
-  <button className="bg-orange-500 text-white font-bold px-6 py-2 rounded shadow hover:bg-orange-600">
-    Go To Shop !
-  </button>
-</Link>        </div>
-
-<div className="absolute bottom-[-60px] left-1/2 transform -translate-x-1/2 w-[90%] bg-white shadow-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-6 py-6 rounded">
-          <div className="text-center">
-            <h3 className="text-3xl font-extrabold">2,500<span className="text-orange-500"> +</span></h3>
-            <p className="text-gray-600">Brand Product</p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-3xl font-extrabold">96<span className="text-orange-500"> %</span></h3>
-            <p className="text-gray-600">Customer Satisfaction</p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-3xl font-extrabold">120<span className="text-orange-500"> +</span></h3>
-            <p className="text-gray-600">Offline Store</p>
-          </div>
-          <div className="text-center">
-            <h3 className="text-3xl font-extrabold">75<span className="text-orange-500"> +</span></h3>
-            <p className="text-gray-600">Professional Team</p>
-          </div>
-        </div>
-      </div>
 
       {/* About Us Concept Section Based on Image */}
 <div className="w-full bg-white mt-28 px-4 md:px-12 lg:px-24 py-12">
@@ -804,9 +437,9 @@ Strong relationships and mutual care build lasting success. New opportunities gr
       <img
         src={review} 
         alt="Auto Parts"
-        className="w-full max-w-[600px] h-auto rounded shadow-md mt-6 sm:mt-[60px]"
+        className="w-full max-w-[600px] h-auto rounded-2xl shadow-lg mt-6 sm:mt-[60px] object-cover"
       />
-      <div className="absolute top-4 left-4 bg-white px-6 py-4 rounded shadow-lg text-center">
+      <div className="absolute top-4 left-4 bg-white px-6 py-4 rounded-xl shadow-lg text-center">
         <h2 className="text-4xl font-bold text-orange-500">24+</h2>
         <p className="text-gray-800 text-sm font-semibold">Years Experience</p>
       </div>
