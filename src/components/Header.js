@@ -1,14 +1,12 @@
 
-
 import { toast } from "react-toastify";
 import axios from "../api/axios"; 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ShoppingCart,
   HelpCircle,
   ClipboardList,
   User,
-  LogOut,
   Menu,
   X,
 } from "lucide-react";
@@ -30,18 +28,13 @@ export default function Header() {
 
   const hideTimeout = useRef(null);
   const { cartItems } = useCart();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const userInfo = sessionStorage.getItem("userInfo");
     setIsLoggedIn(!!userInfo);
   }, []);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("userInfo");
-    setIsLoggedIn(false);
-    navigate("/");
-  };
+ 
 
   const handleMouseEnter = () => {
     clearTimeout(hideTimeout.current);
@@ -68,107 +61,130 @@ const handleFormSubmit = async (e) => {
 
   return (
     <>
-      <header className="bg-white shadow-md py-3 px-6 border-b-4 border-orange-500 relative">
-        <div className="flex flex-wrap items-center justify-between">
-          {/* Logo + Call Back */}
-          <div className="flex items-center gap-4">
-            <img src={logo} alt="Logo" className="h-16 w-auto" />
-            <button
-              className="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded"
-              onClick={() => setShowCallbackForm(true)}
-            >
-              Request a Call Back
-            </button>
-          </div>
+    <header className="bg-white shadow-md py-4 px-6 border-b-4 border-orange-500 relative">
+      {/* <header className="fixed top-0 left-0 w-full bg-white shadow-md px-6 border-b-4 border-orange-500 z-50"> */}
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex gap-6 text-black font-semibold">
-            <Link to="/" className="hover:text-orange-500">Home</Link>
-            <Link to="/shop" className="hover:text-orange-500">Shop</Link>
-            <Link to="/about" className="hover:text-orange-500">About Us</Link>
-            <Link to="/blog" className="hover:text-orange-500">Blog</Link>
-            <Link to="/faq" className="hover:text-orange-500">FAQ's</Link>
-            <Link to="/contact" className="hover:text-orange-500">Contact Us</Link>
-          </nav>
+  <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+    
+    {/* Left Section: Logo + Call Back */}
+    <div className="flex flex-col lg:flex-row items-center gap-4">
+      {/* Logo */}
+      <Link to="/" className="flex items-center">
+        <img 
+          src={logo} 
+          alt="Logo" 
+ className="h-20 md:h-24 lg:h-28 w-auto cursor-pointer"        />
+      </Link>
 
-          {/* Icons + Login */}
-          <div className="flex items-center gap-4 relative">
-            <Link to="/cart" title="Cart" className="relative">
-              <ShoppingCart className="text-gray-700 hover:text-orange-500" />
-              {cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                  {cartItems.length}
-                </span>
-              )}
-            </Link>
+     {/* Request a Call Back (opens modal) */}
+<button
+  onClick={() => setShowCallbackForm(true)}
+  className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-full lg:w-auto text-center"
+>
+  Request a Call Back
+</button>
 
-            <Link to="/order" title="My Orders">
-              <ClipboardList className="text-gray-700 hover:text-orange-500" />
-            </Link>
-            <Link to="/helpcenter" title="Help Center">
-              <HelpCircle className="text-gray-700 hover:text-orange-500" />
-            </Link>
+    </div>
 
-            {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded flex items-center gap-1"
-              >
-                <LogOut size={16} />
-                Logout
-              </button>
-            ) : (
-              <div
-                className="relative"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <button className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded flex items-center gap-1">
-                  <User size={16} />
-                  Login
-                </button>
+    {/* Desktop Nav */}
+    <nav className="hidden lg:flex gap-6 text-black font-semibold">
+      <Link to="/" className="hover:text-orange-500">Home</Link>
+      <Link to="/shop" className="hover:text-orange-500">Shop</Link>
+      <Link to="/about" className="hover:text-orange-500">About Us</Link>
+      <Link to="/blog" className="hover:text-orange-500">Blog</Link>
+      <Link to="/faq" className="hover:text-orange-500">FAQ's</Link>
+      <Link to="/contact" className="hover:text-orange-500">Contact Us</Link>
+    </nav>
 
-                {showLoginDropdown && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-10 text-sm">
-                    <Link
-                      to="/loginuser"
-                      className="block px-4 py-2 hover:bg-orange-100 text-black"
-                    >
-                      Buyer Login
-                    </Link>
-                    <Link
-                      to="/vendor/login"
-                      className="block px-4 py-2 hover:bg-orange-100 text-black"
-                    >
-                      Seller Login
-                    </Link>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Mobile menu button */}
-            <button
-              className="lg:hidden text-gray-700 hover:text-orange-500"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="lg:hidden mt-3 bg-white shadow-md rounded p-4">
-            <Link to="/" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link to="/shop" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>Shop</Link>
-            <Link to="/about" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>About Us</Link>
-            <Link to="/blog" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>Blog</Link>
-             <Link to="/faq" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>FAQ's</Link>
-            <Link to="/contact" className="block py-2 hover:text-orange-500" onClick={() => setMenuOpen(false)}>Contact Us</Link>
-          </div>
+    {/* Right Section → Icons + Login + Menu */}
+    <div className="flex items-center gap-4">
+      {/* Cart */}
+      <Link to="/cart" title="Cart" className="relative">
+        <ShoppingCart className="text-gray-700 hover:text-orange-500" />
+        {cartItems.length > 0 && (
+          <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+            {cartItems.length}
+          </span>
         )}
-      </header>
+      </Link>
+
+      {/* Orders */}
+      <Link to="/order" title="My Orders">
+        <ClipboardList className="text-gray-700 hover:text-orange-500" />
+      </Link>
+
+      {/* Help */}
+      <Link to="/helpcenter" title="Help Center">
+        <HelpCircle className="text-gray-700 hover:text-orange-500" />
+      </Link>
+
+      {/* Login / Logout */}
+      {isLoggedIn ? (
+       
+  <Link
+    to="/profile"
+    className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded flex items-center gap-1"
+  >
+    <User size={16} />
+    Profile
+  </Link>
+      ) : (
+       <div
+  className="relative"
+  onMouseEnter={handleMouseEnter}   
+  onMouseLeave={handleMouseLeave}  
+>
+  <button
+    onClick={() => setShowLoginDropdown((prev) => !prev)} 
+    className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded flex items-center gap-1"
+  >
+    <User size={16} />
+    Login
+  </button>
+
+
+          {showLoginDropdown && (
+            <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-10 text-sm">
+              <Link
+                to="/loginuser"
+                className="block px-4 py-2 hover:bg-orange-100 text-black"
+              >
+                Buyer Login
+              </Link>
+              <Link
+                to="/vendor/login"
+                className="block px-4 py-2 hover:bg-orange-100 text-black"
+              >
+                Seller Login
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Mobile menu button */}
+      <button
+        className="lg:hidden text-gray-700 hover:text-orange-500"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile Menu */}
+  {menuOpen && (
+    <div className="lg:hidden mt-3 bg-white shadow-md rounded p-4">
+      <Link to="/" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>Home</Link>
+      <Link to="/shop" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>Shop</Link>
+      <Link to="/about" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>About Us</Link>
+      <Link to="/blog" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>Blog</Link>
+      <Link to="/faq" className="block py-2 border-b hover:text-orange-500" onClick={() => setMenuOpen(false)}>FAQ's</Link>
+      <Link to="/contact" className="block py-2 hover:text-orange-500" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+    </div>
+  )}
+</header>
+
 
       {/* Callback Form Modal */}
       {showCallbackForm && (
